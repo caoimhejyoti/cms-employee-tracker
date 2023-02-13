@@ -77,25 +77,84 @@ async function startApp() {
 function addEmployeeFnc() {
     inquirer
         .prompt([
-            // questions required:
-            // 1 - what is the first name of the employee?
-            // 2 - what is the last name of the employee?
-            // 3 - what is the role of the employee?
-            // 4 - Who is the manager of the employee?
-            //added to the database
+            {name: "firstName",
+            type: "string",
+            message: "What is the First Name of the Employee?"
+            },
+            {name: "lastName",
+            type: "string",
+            message: "What is the Last Name of the Employee?"
+            },
+            {name: "role",
+            type: "list",
+            message: "What is the Employees Role?",
+            choices: [
+                // FIXME: This needs to be the updated role list
+                "Sales Team Manager",
+                "Salesperson",
+                "Leagal Team Manager",
+                "Lawyer",
+                "Engineering Team Manager",
+                "Software Engineer",
+                "Finance Team Manager",
+                "Accountant",
+            ]
+            },
+            {name: "manager",
+            type: "list",
+            message: "Who is Employee's Manager?",
+            choices: [
+                // FIXME: this needs to be the updated list of managers - all employees with NULL for a manager.
+                "Rory Gilmore",
+                "Lorelai Gilmore",
+                "Leagal Team Manager",
+                "Sookie St.James",
+                "Richard Gilmore",
+                "NULL",
+            ]
+            },          
         ])
+        .then((data)=>{
+            const newEmployee = [data.firstName, data.lastName, data.role, data.manager]
+            const sql = "INSERT INTO employee (first_name, last_name, role, manager_name) VALUES ?";
+
+            db.query(sql, newEmployee, function (err, result) {
+                if (err) throw err;
+                console.log(`Added ${data.firstName} ${data.lastName} to the database` );
+            });
+            startApp();
+        })
 };
 
 
 function addRoleFnc() {
     inquirer
         .prompt([
-            // questions required:
-            // 1 - what is the name of the role?
-            // 2 - what is the salary of the role?
-            // 3 - which department does the role belong to?
-            //added to the database
+            {name: "roleName",
+            type: "string",
+            message: "What is the name of the Role?"
+            },
+            {name: "salary",
+            type: "string",
+            message: "What is the salary of the Role?"
+            },
+            {name: "department",
+            type: "list",
+            message: "Which Department does the Role belong to?",
+            choices: [
+                "HR",
+                "Sales",
+                "Legal",
+                "Finance",
+                "Engineering"
+            ]
+            },
         ])
+        // questions required:
+        // 1 - what is the name of the role?
+        // 2 - what is the salary of the role?
+        // 3 - which department does the role belong to?
+        //added to the database
 }
 
 
