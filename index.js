@@ -1,6 +1,29 @@
 const inquirer = require("inquirer");
 const mysql = require('mysql2');
 
+// DESCRIPTION: links to JavaScript files for exported packages.
+const Employee = require(`./lib/employee`)
+
+//DESCRIPTION: Global Variables
+const allEmployees = [];
+const allRoles = [
+    "Sales Team Manager",
+    "Salesperson",
+    "Leagal Team Manager",
+    "Lawyer",
+    "Engineering Team Manager",
+    "Software Engineer",
+    "Finance Team Manager",
+    "Accountant"
+];
+const allManagers = [
+    "Rory Gilmore",
+    "Lorelai Gilmore",
+    "Leagal Team Manager",
+    "Sookie St.James",
+    "Richard Gilmore",
+    "NULL"
+];
 
 // Connect to database
 const db = mysql.createConnection(
@@ -88,17 +111,7 @@ function addEmployeeFnc() {
             {name: "role",
             type: "list",
             message: "What is the Employees Role?",
-            choices: [
-                // FIXME: This needs to be the updated role list
-                "Sales Team Manager",
-                "Salesperson",
-                "Leagal Team Manager",
-                "Lawyer",
-                "Engineering Team Manager",
-                "Software Engineer",
-                "Finance Team Manager",
-                "Accountant",
-            ]
+            choices: allRoles,
             },
             {name: "manager",
             type: "list",
@@ -115,13 +128,25 @@ function addEmployeeFnc() {
             },          
         ])
         .then((data)=>{
-            const newEmployee = [data.firstName, data.lastName, data.role, data.manager]
+            //Creating new employeed for prompts in startApp();
+            const newEmployee = new Employee(
+                data.firstName,
+                data.lastName,
+                data.role,
+                data.manager
+            );
+            allEmployees.push(newEmployee);
+                
+            //creating query to add new employee to employee db. 
+            const userAddedEmployee = [data.firstName, data.lastName, data.role, data.manager];
             const sql = "INSERT INTO employee (first_name, last_name, role, manager_name) VALUES ?";
 
-            db.query(sql, newEmployee, function (err, result) {
+            db.query(sql, userAddedEmployee, function (err, result) {
                 if (err) throw err;
                 console.log(`Added ${data.firstName} ${data.lastName} to the database` );
             });
+
+            //triggering main function to continue app.
             startApp();
         })
 };
