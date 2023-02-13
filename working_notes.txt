@@ -1,0 +1,3 @@
+13.02.23 16:11:
+1) Showing all tables in full. 
+    bug = once table is displayed, the next set of questions is displayed in the wrong order. 
