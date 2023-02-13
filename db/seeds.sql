@@ -16,15 +16,15 @@ VALUES  ('Sales Team Manager', 100000.00, 2),
         ('Finance Team Manager', 160000.00, 5),
         ('Accountant', 120000.00, 5);
 
-INSERT INTO employee (first_name, last_name, role_id, manager_id)
+INSERT INTO employee (first_name, last_name, role_id, manager_name)
 VALUES  ('Rory', 'Gilmore', 1, NULL),
-        ('Lane', 'Kim', 2, 1),
+        ('Lane', 'Kim', 2, 'Rory Gilmore'),
         ('Lorelai', 'Gilmore', 3, NULL ),
-        ('Luke', 'Danes', 4, 3),
+        ('Luke', 'Danes', 4, 'Lorelai Gilmore'),
         ('Sookie', 'St.James', 5, NULL),
-        ('Kirk', 'Gleason', 6, 5),
+        ('Kirk', 'Gleason', 6, 'Sookie St.James'),
         ('Richard', 'Gilmore', 7, NULL),
-        ('Emily', 'Gilmore', 8, 7);
+        ('Emily', 'Gilmore', 8, "Richard Gilmore");
 
 
 -- INSERT INTO manager (first_name, last_name, role_id)
