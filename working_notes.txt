@@ -1,3 +1,4 @@
 13.02.23 16:11:
 1) Showing all tables in full. 
     bug = once table is displayed, the next set of questions is displayed in the wrong order. 
+2) work on global variables - need to pull data from the database not from a manual array. 
