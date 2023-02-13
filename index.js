@@ -55,6 +55,7 @@ async function startApp() {
                 console.table(results);
             });
             console.log("All Roles:");
+            startApp();
         }else if(answers.menu==="Add Role") {
             addRoleFnc();
         }else if(answers.menu==="View all Departments") {
@@ -62,6 +63,7 @@ async function startApp() {
                 console.table(results);
             });
             console.log("All Departments:");
+            startApp();
         }else if(answers.menu==="Add Department") {
             addDepartmentFnc();
         } else {
@@ -70,3 +72,50 @@ async function startApp() {
         }
     })
 };
+
+
+function addEmployeeFnc() {
+    inquirer
+        .prompt([
+            // questions required:
+            // 1 - what is the first name of the employee?
+            // 2 - what is the last name of the employee?
+            // 3 - what is the role of the employee?
+            // 4 - Who is the manager of the employee?
+            //added to the database
+        ])
+};
+
+
+function addRoleFnc() {
+    inquirer
+        .prompt([
+            // questions required:
+            // 1 - what is the name of the role?
+            // 2 - what is the salary of the role?
+            // 3 - which department does the role belong to?
+            //added to the database
+        ])
+}
+
+
+function updateEmployeeRoleFnc() {
+    inquirer
+        .prompt([
+            // questions required:
+            // 1 - Which employee's role do you want to update? - provide list of all employees
+            // 2 - Which role do you want to assign to the selected employee? - provide list of all roles
+            //added to the database
+        ])
+}
+
+
+
+function addDepartmentFnc() {
+    inquirer
+        .prompt([
+            // questions required:
+            // 1 - name of department
+            //added to the database.
+        ])
+}
