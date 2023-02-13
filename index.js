@@ -12,49 +12,61 @@ const db = mysql.createConnection(
       password: 'Purple1!',
       database: 'employees_db'
     },
-    console.log(`Connected to the employees_db database.`)
 );
 
-inquirer
-    .prompt ([
-        {name: "menu",
-        type: "list",
-        message: "What would you like to do?",
-        choices: [
-            "View all Employees",
-            "Add Employee",
-            "Update Employee Role",
-            "View all Roles",
-            "Add Role",
-            "View all Departments",
-            "Add Department",
-            "Quit",
-            ],
-        default: "View all employees",
+db.connect(function (err){
+    if (err) throw err;
+    console.log(`Connected to the employees_db database.`);
+    startApp();
+});
+
+const menu = [
+    {name: "menu",
+    type: "list",
+    message: "What would you like to do?",
+    choices: [
+        "View all Employees",
+        "Add Employee",
+        "Update Employee Role",
+        "View all Roles",
+        "Add Role",
+        "View all Departments",
+        "Add Department",
+        "Quit",
+        ],
+    default: "View all employees"
+    }
+]
+
+async function startApp() {
+    inquirer.prompt(menu).then(answers=>{
+        if(answers.menu==="View all Employees") {
+            db.query('SELECT * FROM employee', function (err, results) {
+                console.table(results);
+            });
+            console.log("All Employees:");
+            startApp();
+        }else if(answers.menu==="Add Employee") {
+            addEmployeeFnc();
+        }else if(answers.menu==="Update Employee Role") {
+            updateEmployeeRoleFnc();
+        }else if(answers.menu==="View all Roles") {
+            db.query('SELECT * FROM role', function (err, results) {
+                console.table(results);
+            });
+            console.log("All Roles:");
+        }else if(answers.menu==="Add Role") {
+            addRoleFnc();
+        }else if(answers.menu==="View all Departments") {
+            db.query('SELECT * FROM department', function (err, results) {
+                console.table(results);
+            });
+            console.log("All Departments:");
+        }else if(answers.menu==="Add Department") {
+            addDepartmentFnc();
+        } else {
+            console.log("exited successfully");
+            process.exit(0);
         }
-    ])
-    .then((data) => {
-        if (data.menu === "View all Employees"){
-            viewEmployeesQuery;
-        }else{
-            console.log("not possible");
-        };
-    });
-
-const viewEmployeesQuery = `
-    db.query("SELECT * from employees", function (err, results) {
-        console.log(results);
-    });
-`
-
-
-
-// if(answers.options==="Show favorite books") {
-//     db.query('SELECT * FROM favorite_books', function (err, results) {
-//         console.log(results);
-//       });
-//       db.end();
-//       console.log("Done");
-// } else {
-//     process.exit(0);
-// }
+    })
+};
