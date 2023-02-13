@@ -64,6 +64,8 @@ https://www.w3resource.com/mysql/creating-table-advance/constraint.php
 
 https://stackoverflow.com/questions/28715142/reference-a-foreign-key-to-a-primary-key-within-the-same-table
 
+https://www.w3schools.com/nodejs/nodejs_mysql_insert.asp
+
 
 ## License
 This project is using the following license:
