@@ -66,6 +66,12 @@ https://stackoverflow.com/questions/28715142/reference-a-foreign-key-to-a-primar
 
 https://www.w3schools.com/nodejs/nodejs_mysql_insert.asp
 
+https://2u-20.wistia.com/medias/2lnle7xnpk
+https://stackoverflow.com/questions/22739841/mysql-combine-two-columns-into-one-column
+https://www.w3schools.com/sql/func_mysql_concat.asp
+
+
+
 
 ## License
 This project is using the following license:
