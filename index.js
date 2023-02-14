@@ -61,32 +61,35 @@ const menu = [
     }
 ]
 
-async function startApp() {
+function startApp() {
     inquirer.prompt(menu).then(answers=>{
         if(answers.menu==="View all Employees") {
             db.query('SELECT * FROM employee', function (err, results) {
+                if (err) throw err;
+                console.log("All Employees:");
                 console.table(results);
+                startApp();
             });
-            console.log("All Employees:");
-            startApp();
         }else if(answers.menu==="Add Employee") {
             addEmployeeFnc();
         }else if(answers.menu==="Update Employee Role") {
             updateEmployeeRoleFnc();
         }else if(answers.menu==="View all Roles") {
             db.query('SELECT * FROM role', function (err, results) {
+                if (err) throw err;
+                console.log("All Roles:");
                 console.table(results);
+                startApp();
             });
-            console.log("All Roles:");
-            startApp();
         }else if(answers.menu==="Add Role") {
             addRoleFnc();
         }else if(answers.menu==="View all Departments") {
             db.query('SELECT * FROM department', function (err, results) {
+                if (err) throw err;
+                console.log("All Departments:");
                 console.table(results);
+                startApp();
             });
-            console.log("All Departments:");
-            startApp();
         }else if(answers.menu==="Add Department") {
             addDepartmentFnc();
         } else {
