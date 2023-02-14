@@ -3,6 +3,8 @@ const mysql = require('mysql2');
 
 // DESCRIPTION: links to JavaScript files for exported packages.
 const Employee = require(`./lib/employee`)
+const Role = require(`./lib/role`)
+const Department = require(`./lib/department`)
 
 //DESCRIPTION: Global Variables
 const allEmployees = [];
@@ -24,6 +26,13 @@ const allManagers = [
     "Richard Gilmore",
     "NULL"
 ];
+const allDepartments = [
+    "HR",
+    "Sales",
+    "Legal",
+    "Finance",
+    "Engineering"
+]
 
 // Connect to database
 const db = mysql.createConnection(
@@ -132,6 +141,7 @@ function addEmployeeFnc() {
         ])
         .then((data)=>{
             //Creating new employeed for prompts in startApp();
+            
             const newEmployee = new Employee(
                 data.firstName,
                 data.lastName,
@@ -140,11 +150,12 @@ function addEmployeeFnc() {
             );
             allEmployees.push(newEmployee);
                 
-            //creating query to add new employee to employee db. 
-            const userAddedEmployee = [data.firstName, data.lastName, data.role, data.manager];
-            const sql = "INSERT INTO employee (first_name, last_name, role, manager_name) VALUES ?";
+            //creating query to add new employee to employee table. 
+            const sql = "INSERT INTO employee (first_name, last_name, role_id, manager_name) VALUES ?";
+            const userAddedEmployee = [[data.firstName], [data.lastName], [data.role], [data.manager]];
 
-            db.query(sql, userAddedEmployee, function (err, result) {
+            db.query(sql, [userAddedEmployee], function (err, result) {
+                console.log(result);
                 if (err) throw err;
                 console.log(`Added ${data.firstName} ${data.lastName} to the database` );
             });
@@ -178,6 +189,30 @@ function addRoleFnc() {
             ]
             },
         ])
+        .then((data)=>{
+            //Creating new role for prompts in startApp();
+            
+            const newRole = new Role(
+                data.title,
+                data.salary,
+                data.department_id
+            );
+            allRoles.push(newRole);
+                
+            //creating query to add new Role to Role table. 
+            const sql = "INSERT INTO role (tile, salary, department_id) VALUES ?";
+            const userAddedRole = [[data.title], [data.salary], [data.department_id]];
+
+            db.query(sql, [userAddedRole], function (err, result) {
+                console.log(result);
+                if (err) throw err;
+                console.log(`Added ${data.title} role to the database` );
+                //triggering main function to continue app.
+                startApp();
+            });
+
+        })
+
         // questions required:
         // 1 - what is the name of the role?
         // 2 - what is the salary of the role?
@@ -203,6 +238,31 @@ function addDepartmentFnc() {
         .prompt([
             // questions required:
             // 1 - name of department
+            {name: "departmentName",
+            type: "string",
+            message: "What is the name of the Department?"
+            },
             //added to the database.
         ])
+        .then((data)=>{
+            //Creating new Department for prompts in startApp();
+            
+            const newDepartment = new Department(
+                data.departmentName
+            );
+            allDepartments.push(newDepartment);
+                
+            //creating query to add new Department to Department table. 
+            const sql = "INSERT INTO Department (department_name) VALUES ?";
+            const userAddedDepartment = [[data.department_name]];
+
+            db.query(sql, [userAddedDepartment], function (err, result) {
+                console.log(result);
+                if (err) throw err;
+                console.log(`Added ${data.departmentName} Department to the database` );
+                //triggering main function to continue app.
+                startApp();
+            });
+
+        })
 }
