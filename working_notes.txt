@@ -1,4 +1,16 @@
 13.02.23 16:11:
-1) Showing all tables in full. 
+1) WORKING! Showing all tables in full. 
     bug = once table is displayed, the next set of questions is displayed in the wrong order. 
 2) work on global variables - need to pull data from the database not from a manual array. 
+
+14.02.23 - 17:53 :
+
+1) when creating a new employee, the role has to references the role_id. Office hours required!
+2) when creating a new role, the role has to references the department_id. Office hours required!
+2) when creating a new role, the role has to references the department_id. Office hours required!
+
+
+select index of array, minus 1 from selecton. this is the id #.
+
+pull data from the database - query! SELECT * FROM (table name) WHERE something is something. 
+
