@@ -7,39 +7,7 @@
 const inquirer = require("inquirer");
 const mysql = require('mysql2');
 const chalk = require('chalk');
-
-// // DESCRIPTION: links to JavaScript files for exported packages.
-// const Employee = require(`./lib/employee`)
-// const Role = require(`./lib/role`)
-// const Department = require(`./lib/department`)
-
-// //DESCRIPTION: Global Variables
-// const allEmployees = [];
-// const allRoles = [
-//     "Sales Team Manager",
-//     "Salesperson",
-//     "Leagal Team Manager",
-//     "Lawyer",
-//     "Engineering Team Manager",
-//     "Software Engineer",
-//     "Finance Team Manager",
-//     "Accountant"
-// ];
-// const allManagers = [
-//     "Rory Gilmore",
-//     "Lorelai Gilmore",
-//     "Leagal Team Manager",
-//     "Sookie St.James",
-//     "Richard Gilmore",
-//     "NULL"
-// ];
-// const allDepartments = [
-//     "HR",
-//     "Sales",
-//     "Legal",
-//     "Finance",
-//     "Engineering"
-// ]
+// const db = require('./config/connection');
 
 // COMPLETE!
 // DESCRIPTION: Connect to database
@@ -52,6 +20,8 @@ const db = mysql.createConnection(
       database: 'employees_db'
     },
 );
+
+
 
 //COMPLETE!
 // DESCRIPTION: Triggers connection to database and welcomes user to app.
@@ -83,12 +53,6 @@ const menu = [
     }
 ]
 
-// SELECT
-//   favorite_books.book_name AS name, book_prices.price AS price
-// FROM favorite_books
-// JOIN book_prices ON favorite_books.book_price = book_prices.id;
-
-// JOIN department ON role.department_id = department.department_name
 
 function startApp() {
     inquirer.prompt(menu).then(answers=>{
@@ -311,3 +275,14 @@ function allDepartmentsFnc() {
     return departmentArr;
 };
 
+
+// //DESCRIPTION: Function to initialize app
+// function initFnc() {
+//     console.log(chalk.magentaBright('------------------------------\n' +
+//         'Welcome to the CMS Employee Tracker\n' +
+//         '--------------------------------\n'));
+//     startApp();
+// }
+
+// //DESCRIPTION: Function call to initialize app
+// initFnc();
