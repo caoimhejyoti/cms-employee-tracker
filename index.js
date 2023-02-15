@@ -1,4 +1,5 @@
 // TODO: 
+    // format all displayed tables!  
     // add descriptions to all code
     // remove dead code
     // remove all HIGHLIGHTED working notes!
@@ -52,14 +53,18 @@ const db = mysql.createConnection(
     },
 );
 
+//COMPLETE!
+// DESCRIPTION: Triggers connection to database and welcomes user to app.
 db.connect(function (err){
     if (err) throw err;
     console.log(chalk.magentaBright('------------------------------\n' +
-        'Welcome to the Employee Tracker CMS\n' +
+        'Welcome to the CMS Employee Tracker\n' +
         '--------------------------------\n'));
     startApp();
 });
 
+//WORKING!
+// DESCRIPTION: Root menu for app.
 const menu = [
     {name: "menu",
     type: "list",
@@ -80,10 +85,11 @@ const menu = [
 
 function startApp() {
     inquirer.prompt(menu).then(answers=>{
+        //WORKING! FIXME: need to format table and secify columns.
         if(answers.menu==="View all Employees") {
             db.query('SELECT * FROM employee', function (err, results) {
                 if (err) throw err;
-                console.log("All Employees:");
+                console.log(chalk.magentaBright("All Employees:"));
                 console.table(results);
                 startApp();
             });
@@ -91,26 +97,31 @@ function startApp() {
             addEmployeeFnc();
         }else if(answers.menu==="Update Employee Role") {
             updateEmployeeRoleFnc();
+        //WORKING! FIXME: need to format table and secify columns.
         }else if(answers.menu==="View all Roles") {
             db.query('SELECT * FROM role', function (err, results) {
                 if (err) throw err;
-                console.log("All Roles:");
+                console.log(chalk.magentaBright("All Roles:"));
                 console.table(results);
                 startApp();
             });
         }else if(answers.menu==="Add Role") {
             addRoleFnc();
+        //WORKING! FIXME: need to format table and secify columns.
         }else if(answers.menu==="View all Departments") {
             db.query('SELECT * FROM department', function (err, results) {
                 if (err) throw err;
-                console.log("All Departments:");
+                console.log(chalk.magentaBright("All Departments:"));
                 console.table(results);
                 startApp();
             });
+        //WORKING!
         }else if(answers.menu==="Add Department") {
             addDepartmentFnc();
         } else {
-            console.log("exited successfully");
+            console.log(chalk.magentaBright('------------------------------\n' +
+            'Thank you for using the CMS Employee Tracker\n' +
+            '--------------------------------\n'));
             process.exit(0);
         }
     })

@@ -14,3 +14,6 @@ select index of array, minus 1 from selecton. this is the id #.
 
 pull data from the database - query! SELECT * FROM (table name) WHERE something is something. 
 
+
+format all displayed tables!  
+
