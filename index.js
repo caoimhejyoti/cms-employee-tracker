@@ -123,42 +123,45 @@ function addEmployeeFnc() {
             {name: "role",
             type: "list",
             message: "What is the Employees Role?",
-            choices: allRoles,
+            choices: allRolesFnc()
             },
             {name: "manager",
             type: "list",
             message: "Who is Employee's Manager?",
-            choices: [
-                // FIXME: this needs to be the updated list of managers - all employees with NULL for a manager.
-                "Rory Gilmore",
-                "Lorelai Gilmore",
-                "Leagal Team Manager",
-                "Sookie St.James",
-                "Richard Gilmore",
-                "NULL",
-            ]
+            choices: allManagersFnc()            
             },          
         ])
         .then((data)=>{
+            console.log(data);
+
+            // RESULTS FROM TEST RUN
+            //{
+            //     firstName: 'Barbra',
+            //     lastName: 'Jean',
+            //     role: 'Sales Team Manager',
+            //     manager: 'NULL'
+            // }
+            //
+            
             //Creating new employeed for prompts in startApp();
             
-            const newEmployee = new Employee(
-                data.firstName,
-                data.lastName,
-                data.role,
-                data.manager
-            );
-            allEmployees.push(newEmployee);
+            // const newEmployee = new Employee(
+            //     data.firstName,
+            //     data.lastName,
+            //     data.role,
+            //     data.manager
+            // );
+            // allEmployees.push(newEmployee);
                 
-            //creating query to add new employee to employee table. 
-            const sql = "INSERT INTO employee (first_name, last_name, role_id, manager_name) VALUES ?";
-            const userAddedEmployee = [[data.firstName], [data.lastName], [data.role], [data.manager]];
+            // //creating query to add new employee to employee table. 
+            // const sql = "INSERT INTO employee (first_name, last_name, role_id, manager_name) VALUES ?";
+            // const userAddedEmployee = [[data.firstName], [data.lastName], [data.role], [data.manager]];
 
-            db.query(sql, [userAddedEmployee], function (err, result) {
-                console.log(result);
-                if (err) throw err;
-                console.log(`Added ${data.firstName} ${data.lastName} to the database` );
-            });
+            // db.query(sql, [userAddedEmployee], function (err, result) {
+            //     console.log(result);
+            //     if (err) throw err;
+            //     console.log(`Added ${data.firstName} ${data.lastName} to the database` );
+            // });
 
             //triggering main function to continue app.
             startApp();
@@ -180,36 +183,34 @@ function addRoleFnc() {
             {name: "department",
             type: "list",
             message: "Which Department does the Role belong to?",
-            choices: [
-                "HR",
-                "Sales",
-                "Legal",
-                "Finance",
-                "Engineering"
-            ]
+            choices: allDepartmentsFnc()
             },
         ])
         .then((data)=>{
-            //Creating new role for prompts in startApp();
-            
-            const newRole = new Role(
-                data.title,
-                data.salary,
-                data.department_id
-            );
-            allRoles.push(newRole);
-                
-            //creating query to add new Role to Role table. 
-            const sql = "INSERT INTO role (tile, salary, department_id) VALUES ?";
-            const userAddedRole = [[data.title], [data.salary], [data.department_id]];
+            console.log(data);
+// data from test run:
+// { roleName: 'testing', salary: '80000', department: 'Legal' }
 
-            db.query(sql, [userAddedRole], function (err, result) {
-                console.log(result);
-                if (err) throw err;
-                console.log(`Added ${data.title} role to the database` );
-                //triggering main function to continue app.
-                startApp();
-            });
+            // //Creating new role for prompts in startApp();
+            
+            // const newRole = new Role(
+            //     data.title,
+            //     data.salary,
+            //     data.department_id
+            // );
+            // allRoles.push(newRole);
+                
+            // //creating query to add new Role to Role table. 
+            // const sql = "INSERT INTO role (tile, salary, department_id) VALUES ?";
+            // const userAddedRole = [[data.title], [data.salary], [data.department_id]];
+
+            // db.query(sql, [userAddedRole], function (err, result) {
+            //     console.log(result);
+            //     if (err) throw err;
+            //     console.log(`Added ${data.title} role to the database` );
+            //     //triggering main function to continue app.
+            //     startApp();
+            // });
 
         })
 
@@ -266,3 +267,37 @@ function addDepartmentFnc() {
 
         })
 }
+
+let managerArr = ['NULL'];
+function allManagersFnc() {
+    db.query('SELECT first_name, last_name FROM employee WHERE manager_id IS NULL', function (err, results) {
+        if (err) throw err;
+        for (let i = 0; i < results.length; i++) {
+            managerArr.push(results[i].first_name);          
+        }
+    })
+    return managerArr;
+};
+
+let roleArr = [];
+function allRolesFnc() {
+    db.query('SELECT * FROM role', function (err, results) {
+        if (err) throw err;
+        for (let i = 0; i < results.length; i++) {
+            roleArr.push(results[i].title);          
+        }
+    })
+    return roleArr;
+};
+
+let departmentArr = [];
+function allDepartmentsFnc() {
+    db.query('SELECT * FROM department', function (err, results) {
+        if (err) throw err;
+        for (let i = 0; i < results.length; i++) {
+            departmentArr.push(results[i].department_name);          
+        }
+    })
+    return departmentArr;
+};
+
