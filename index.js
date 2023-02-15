@@ -8,6 +8,9 @@ const inquirer = require("inquirer");
 const mysql = require('mysql2');
 const chalk = require('chalk');
 // const db = require('./config/connection');
+// const department = require('./queries/department');
+// const employee = require('./queries/employee');
+// const role = require('./queries/role');
 
 // COMPLETE!
 // DESCRIPTION: Connect to database
