@@ -187,31 +187,22 @@ function addRoleFnc() {
             },
         ])
         .then((data)=>{
-            console.log(data);
-// data from test run:
-// { roleName: 'testing', salary: '80000', department: 'Legal' }
+            console.log(data); //used for debugging
 
-            // //Creating new role for prompts in startApp();
+            const departmentID = departmentArr.indexOf(data.department);
+            const userAddedRole = [[data.roleName], [data.salary], [departmentID]]; //WORKING! 
+            const sql = "INSERT INTO role (title, salary, department_id) VALUES ('" + `${data.roleName}` + "', '" + `${data.salary}` + "', " + `${data.departmentID}` + ")";
             
-            // const newRole = new Role(
-            //     data.title,
-            //     data.salary,
-            //     data.department_id
-            // );
-            // allRoles.push(newRole);
-                
-            // //creating query to add new Role to Role table. 
-            // const sql = "INSERT INTO role (tile, salary, department_id) VALUES ?";
-            // const userAddedRole = [[data.title], [data.salary], [data.department_id]];
-
-            // db.query(sql, [userAddedRole], function (err, result) {
-            //     console.log(result);
-            //     if (err) throw err;
-            //     console.log(`Added ${data.title} role to the database` );
-            //     //triggering main function to continue app.
-            //     startApp();
-            // });
-
+            console.log(userAddedRole); //used for debugging
+            
+            //creating query to add new Role to Role table. 
+            db.query(sql, function (err, result) {
+                console.log(result);
+                if (err) throw err;
+                console.log(`Added ${data.title} role to the database` );
+                //triggering main function to continue app.
+                startApp();
+            });
         })
 
         // questions required:
