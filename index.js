@@ -1,46 +1,52 @@
+// TODO: 
+    // add descriptions to all code
+    // remove dead code
+    // remove all HIGHLIGHTED working notes!
+
 const inquirer = require("inquirer");
 const mysql = require('mysql2');
+const chalk = require('chalk');
 
-// DESCRIPTION: links to JavaScript files for exported packages.
-const Employee = require(`./lib/employee`)
-const Role = require(`./lib/role`)
-const Department = require(`./lib/department`)
+// // DESCRIPTION: links to JavaScript files for exported packages.
+// const Employee = require(`./lib/employee`)
+// const Role = require(`./lib/role`)
+// const Department = require(`./lib/department`)
 
-//DESCRIPTION: Global Variables
-const allEmployees = [];
-const allRoles = [
-    "Sales Team Manager",
-    "Salesperson",
-    "Leagal Team Manager",
-    "Lawyer",
-    "Engineering Team Manager",
-    "Software Engineer",
-    "Finance Team Manager",
-    "Accountant"
-];
-const allManagers = [
-    "Rory Gilmore",
-    "Lorelai Gilmore",
-    "Leagal Team Manager",
-    "Sookie St.James",
-    "Richard Gilmore",
-    "NULL"
-];
-const allDepartments = [
-    "HR",
-    "Sales",
-    "Legal",
-    "Finance",
-    "Engineering"
-]
+// //DESCRIPTION: Global Variables
+// const allEmployees = [];
+// const allRoles = [
+//     "Sales Team Manager",
+//     "Salesperson",
+//     "Leagal Team Manager",
+//     "Lawyer",
+//     "Engineering Team Manager",
+//     "Software Engineer",
+//     "Finance Team Manager",
+//     "Accountant"
+// ];
+// const allManagers = [
+//     "Rory Gilmore",
+//     "Lorelai Gilmore",
+//     "Leagal Team Manager",
+//     "Sookie St.James",
+//     "Richard Gilmore",
+//     "NULL"
+// ];
+// const allDepartments = [
+//     "HR",
+//     "Sales",
+//     "Legal",
+//     "Finance",
+//     "Engineering"
+// ]
 
-// Connect to database
+// COMPLETE!
+// DESCRIPTION: Connect to database
 const db = mysql.createConnection(
     {
       host: '127.0.0.1',
       // MySQL username,
       user: 'root',
-      // TODO: Add MySQL password
       password: 'Purple1!',
       database: 'employees_db'
     },
@@ -48,7 +54,9 @@ const db = mysql.createConnection(
 
 db.connect(function (err){
     if (err) throw err;
-    console.log(`Connected to the employees_db database.`);
+    console.log(chalk.magentaBright('------------------------------\n' +
+        'Welcome to the Employee Tracker CMS\n' +
+        '--------------------------------\n'));
     startApp();
 });
 
