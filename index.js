@@ -83,11 +83,20 @@ const menu = [
     }
 ]
 
+// SELECT
+//   favorite_books.book_name AS name, book_prices.price AS price
+// FROM favorite_books
+// JOIN book_prices ON favorite_books.book_price = book_prices.id;
+
+// JOIN department ON role.department_id = department.department_name
+
 function startApp() {
     inquirer.prompt(menu).then(answers=>{
-        //WORKING! FIXME: need to format table and secify columns.
+        //WORKING! FIXME: add department name! 
         if(answers.menu==="View all Employees") {
-            db.query('SELECT * FROM employee', function (err, results) {
+            
+            // db.query('SELECT employee.id AS "Employee ID", CONCAT_WS (" ", employee.first_name, employee.last_name) AS "Full Name", r.title AS "Job Title", r.salary AS "Salary", d.department_name AS "Department Name" FROM employee INNER JOIN role as r on employee.role_id = r.id INNER JOIN department as d on role.department_id = d.id LEFT JOIN employee as e on employee.manager_id=e.id', function (err, results) {
+            db.query('SELECT employee.id AS "Employee ID", CONCAT_WS (" ", employee.first_name, employee.last_name) AS "Full Name", r.title AS "Job Title", r.salary AS "Salary", CONCAT(e.first_name, " " , e.last_name) AS Manager FROM employee INNER JOIN role as r on employee.role_id = r.id LEFT JOIN employee as e on employee.manager_id=e.id', function (err, results) {
                 if (err) throw err;
                 console.log(chalk.magentaBright("All Employees:"));
                 console.table(results);
@@ -96,10 +105,10 @@ function startApp() {
         }else if(answers.menu==="Add Employee") {
             addEmployeeFnc();
         }else if(answers.menu==="Update Employee Role") {
-            updateEmployeeRoleFnc();
-        //WORKING! FIXME: need to format table and secify columns.
+            // updateEmployeeRoleFnc();JOIN department ON role.department_id = department.department_name;
+        //WORKING! 
         }else if(answers.menu==="View all Roles") {
-            db.query('SELECT * FROM role', function (err, results) {
+            db.query('SELECT role.id as "Role ID", role.title AS "Job Title", d.department_name AS "Department Name", salary AS "Salary" FROM role join department as d on role.department_id = d.id', function (err, results) {
                 if (err) throw err;
                 console.log(chalk.magentaBright("All Roles:"));
                 console.table(results);
@@ -107,9 +116,10 @@ function startApp() {
             });
         }else if(answers.menu==="Add Role") {
             addRoleFnc();
-        //WORKING! FIXME: need to format table and secify columns.
+            
+        //WORKING! FIXME: need to format table.
         }else if(answers.menu==="View all Departments") {
-            db.query('SELECT * FROM department', function (err, results) {
+            db.query('SELECT id AS "Department ID", department_name AS "Department Name" FROM department', function (err, results) {
                 if (err) throw err;
                 console.log(chalk.magentaBright("All Departments:"));
                 console.table(results);
