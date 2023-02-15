@@ -224,38 +224,28 @@ function updateEmployeeRoleFnc() {
 }
 
 
-
+//WORKING!
 function addDepartmentFnc() {
     inquirer
         .prompt([
-            // questions required:
-            // 1 - name of department
             {name: "departmentName",
             type: "string",
             message: "What is the name of the Department?"
             },
-            //added to the database.
         ])
         .then((data)=>{
             //Creating new Department for prompts in startApp();
-            
-            const newDepartment = new Department(
-                data.departmentName
-            );
-            allDepartments.push(newDepartment);
-                
+                           
             //creating query to add new Department to Department table. 
             const sql = "INSERT INTO Department (department_name) VALUES ?";
-            const userAddedDepartment = [[data.department_name]];
+            const userAddedDepartment = [[data.departmentName]];
 
             db.query(sql, [userAddedDepartment], function (err, result) {
-                console.log(result);
                 if (err) throw err;
                 console.log(`Added ${data.departmentName} Department to the database` );
                 //triggering main function to continue app.
                 startApp();
             });
-
         })
 }
 
