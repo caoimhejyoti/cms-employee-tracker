@@ -14,6 +14,22 @@ select index of array, minus 1 from selecton. this is the id #.
 
 pull data from the database - query! SELECT * FROM (table name) WHERE something is something. 
 
-
+Questions for SAM:
 format all displayed tables!  
+how to remove indexes from tables. 
+
+
+15.02.23 TODO: 
+
+1) Add department name to view all employees table. 
+2) re-organise filing system and connections to ensure new system works
+3) add new role functionality
+4) add new employee functionality
+5) add update employee functionality
+6) add view employees by manager functionality
+7) add view employees by department functionality
+8) add delete department functionality
+9) add delete employees functionality
+10) add delete roles functionality
+
 
