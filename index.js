@@ -253,7 +253,7 @@ function updateEmployeeRoleFnc() {
 }
 
 
-//WORKING!
+//COMPLETE! WORKING!
 function addDepartmentFnc() {
     inquirer
         .prompt([
